@@ -1,3 +1,6 @@
-const value: string = 'test';
+import { run } from './server';
 
-console.log(value);
+// TODO: retrieve from config/env
+const port = 3000;
+
+run({ port });
