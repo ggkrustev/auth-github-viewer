@@ -1,6 +1,7 @@
-import { run } from './server';
+import config from "config";
 
-// TODO: retrieve from config/env
-const port = 3000;
+import { run } from "./server";
+
+const port = config.get('server.port') as number;
 
 run({ port });
