@@ -1,0 +1,12 @@
+{
+    "defaultSeverity": "error",
+    "extends": ["tslint:recommended", "tslint-config-prettier"],
+    "linterOptions": {
+        "exclude": ["node_modules/**/*.ts"]
+    },
+    "jsRules": false,
+    "rules": {
+        "interface-name": ["never-prefix"]
+    },
+    "rulesDirectory": []
+}
