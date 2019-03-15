@@ -1,0 +1,5 @@
+--require ts-node/register
+--require reflect-metadata
+--require chai
+--timeout 1200000
+

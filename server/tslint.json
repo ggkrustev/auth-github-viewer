@@ -6,7 +6,9 @@
     },
     "jsRules": false,
     "rules": {
-        "interface-name": ["never-prefix"]
+        "interface-name": ["never-prefix"],
+        "ordered-imports": false
+
     },
     "rulesDirectory": []
 }
