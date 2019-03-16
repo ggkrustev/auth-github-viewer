@@ -1,5 +1,10 @@
 {
     "server": {
         "port": 3000
+    },
+    "github": {
+        "token": "88b27dfb14c689f27d1f1cf68ff3dff8c96a77e0",
+        "apiUrl": "https://api.github.com/graphql",
+        "organizationUrl": "https://github.com/vmware"
     }
 }
