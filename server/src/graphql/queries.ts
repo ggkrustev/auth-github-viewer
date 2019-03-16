@@ -54,3 +54,41 @@ export const repoObjectQuery = (nameId: string, objectName: string) => `{
     }
   }
 }`;
+
+
+// TODO: extract static values as params
+/**
+ * Query for fetching repo general information
+ * @param {string} nameId Github repo name
+ * @returns GraphQL query
+ */
+export const commitsQuery = (nameId: string) => `
+{
+    repository(name: ${nameId}, owner: "vmware") {
+        ref(qualifiedName: "master") {
+            target {
+            ... on Commit {
+                id
+                history(first: 20) {
+                    pageInfo {
+                        hasNextPage
+                    }
+                    edges {
+                        node {
+                            messageHeadline
+                            oid
+                            message
+                        author {
+                            name
+                            email
+                            date
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+`;

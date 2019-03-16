@@ -1,10 +1,9 @@
+import { Commit } from '../models/commit'
 import { Repository } from '../models/repository'
 
-// TODO: beautify the hasValue impl
 const hasValue = (current: { [x: string]: any }, prop: string): boolean =>
     current[prop] !== null && current[prop] !== undefined
 
-// TODO: beautify the safeGet impl
 const safeGet = <T>(properties: string[], empty: T) => (node: {
     [x: string]: any
 }): T => {
@@ -42,3 +41,25 @@ const getObjectText = safeGet<string>(['repository', 'object', 'text'], '')
 
 export const mapObjectToText = (data: { [x: string]: any }): string =>
     getObjectText(data)
+
+const getHistoryEdges = safeGet<any[]>(
+    ['repository', 'ref', 'target', 'history', 'edges'],
+    []
+)
+const getCommitId = safeGet<string>(['oid'], '')
+const getCommitComment = safeGet<string>(['messageHeadline'], '')
+const getCommitDate = safeGet<string>(['author', 'date'], '')
+const getCommitContributor = safeGet<string>(['author', 'email'], '')
+
+export const mapToCommit = (data: { [x: string]: any }): Commit[] => {
+    const edges = getHistoryEdges(data)
+    return edges.map((x) => {
+        const node = getNode(x)
+        return {
+            id: getCommitId(node),
+            contributor: getCommitContributor(node),
+            comment: getCommitComment(node),
+            date: getCommitDate(node),
+        } as Commit
+    })
+}
