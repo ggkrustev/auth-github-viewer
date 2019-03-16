@@ -1,7 +1,7 @@
 import 'mocha'
 import { expect } from 'chai'
 import { Repository } from '../../src/models/repository'
-import { mapToRepos } from '../../src/graphql/mappings'
+import { mapToRepos, mapObjectToText } from '../../src/graphql/mappings'
 
 describe('GraphQL nodes to models mapping', () => {
     describe('mapToRepos', () => {
@@ -41,6 +41,21 @@ describe('GraphQL nodes to models mapping', () => {
             ] as Repository[]
 
             expect(mapToRepos(nodes)).to.eql(expected)
+        })
+    })
+
+    describe('mapObjectToText', () => {
+        it('should extract text from repository.object blob', () => {
+            const expected = 'some text'
+            const data = {
+                repository: {
+                    object: {
+                        text: expected,
+                    },
+                },
+            }
+
+            expect(mapObjectToText(data)).to.equal(expected)
         })
     })
 })

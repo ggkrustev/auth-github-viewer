@@ -26,8 +26,8 @@ const getCommits = safeGet<number>(
 )
 const getReleases = safeGet<number>(['releases', 'totalCount'], 0)
 
-export const mapToRepos = (nodes: any[]): Repository[] =>
-    nodes.map((x) => {
+export const mapToRepos = (edges: any[]): Repository[] =>
+    edges.map((x) => {
         const node = getNode(x)
         return {
             name: getName(node),
@@ -37,3 +37,8 @@ export const mapToRepos = (nodes: any[]): Repository[] =>
             releases: getReleases(node),
         } as Repository
     })
+
+const getObjectText = safeGet<string>(['repository', 'object', 'text'], '')
+
+export const mapObjectToText = (data: { [x: string]: any }): string =>
+    getObjectText(data)
