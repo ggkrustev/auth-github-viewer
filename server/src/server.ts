@@ -8,40 +8,37 @@ import { ServerOptions } from './models/serverOptions'
 
 // import all controllers
 import './controllers/home.controller';
+import './controllers/github.controller'
 
 // start the server
 const server = new InversifyExpressServer(container);
 
 server.setConfig((app) => {
-  app.use(bodyParser.urlencoded({
-    extended: true
-  }));
-  app.use(bodyParser.json());
+    app.use(
+        bodyParser.urlencoded({
+            extended: true,
+        })
+    )
+    app.use(bodyParser.json())
 });
 
 server.setConfig((app) => {
-  app.use(bodyParser.urlencoded({
-    extended: true
-  }));
-  app.use(bodyParser.json());
+    app.use(
+        bodyParser.urlencoded({
+            extended: true,
+        })
+    )
+    app.use(bodyParser.json())
 });
 
 const serverInstance = server.build()
 const runServer = (options: ServerOptions) => {
-                                                  const {
-                                                      port,
-                                                  } = options
+    const { port } = options
 
-                                                  // tslint:disable-next-line
-                                                  serverInstance.listen(
-                                                      port,
-                                                      () =>
-                                                          console.log(
-                                                              `Example app listening on port ${port}!`
-                                                          )
-                                                  )
-                                              }
+    serverInstance.listen(=>
+     tslint:disable-next-line
+        console.log(`Example app listening on port ${port}!`)
+    )
+}
 
-export {
-  runServer
-};
+export { runServer }

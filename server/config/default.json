@@ -6,5 +6,14 @@
         "token": "88b27dfb14c689f27d1f1cf68ff3dff8c96a77e0",
         "apiUrl": "https://api.github.com/graphql",
         "organizationUrl": "https://github.com/vmware"
+    },
+    "auth": {
+        "algorithm": "RS256",
+        "audience": "https://www.vmware.com",
+        "expiresIn": "7d",
+        "issuer": "VMWare",
+        "subject": "admin@vmware.com",
+        "secret": "MIIBOQIBAAJBAIdJvHY0F7NcTCW0FLpaE3+6pLkq5iTPXKbqQlsEyj0Bf8NYxF48taxMpTEKyFCI7fqNAHYgZzzujLdTeriAxG8CAwEAAQJAYEESGXeOtUoh02GAreWQofwFXskq3V27qfZaJ7AMw8HQSZcQEjLh5nuIgZX8w3pLZJsL4PXqPouKf1yvixMJAQIhAO52mNtYObHAxoljyw9+ZeEDBK0bH/8Kudt8wn0D8xFPAiEAkTy4vegxxRT6fFu9kV7plbPVzTIDLbB42oslXa0pEuECID+MWXXy0AU/w2jvsDijzZCmVkOve9piyF7mo4nfWJJfAiB3xrwU4gkpn8N0C7SqzruU2lrYfwZgB8mjcl2+g6/8AQIgJJitU4s+EtFRM+8u6aclp6435pPqx620cXrBrZOWuTY=",
+        "public": "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIdJvHY0F7NcTCW0FLpaE3+6pLkq5iTPXKbqQlsEyj0Bf8NYxF48taxMpTEKyFCI7fqNAHYgZzzujLdTeriAxG8CAwEAAQ=="
     }
 }
