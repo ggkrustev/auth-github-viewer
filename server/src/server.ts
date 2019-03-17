@@ -1,12 +1,17 @@
+ // tslint:disable:only-arrow-functions
+//
 import 'reflect-metadata'
+import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import bearerToken from 'express-bearer-token'
 import express, { Request, Response } from 'express'
 import { InversifyExpressServer } from 'inversify-express-utils'
 import * as swagger from 'swagger-express-ts'
 
+import DI from './di'
 import container from './injections'
 import { ServerOptions } from './models/serverOptions'
+import logger from './helpers/logger'
 
 // import all controllers
 import './controllers/github.controller'
@@ -16,6 +21,15 @@ import './controllers/auth.controller'
 const server = new InversifyExpressServer(container);
 
 server.setConfig((app) => {
+    app.use(
+        morgan('combined', {
+            stream: {
+                write: (meta: any) => {
+                    logger.info('Request served', meta)
+                },
+            },
+        })
+    )
     app.use(bearerToken())
     app.use('/api-docs/swagger', express.static('swagger'))
     app.use(

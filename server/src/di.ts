@@ -1,10 +1,14 @@
 export default {
     AUTH_CONFIG: Symbol.for('AuthConfig'),
-    AUTH_SERVICE: Symbol.for('AuthService'),
-    AUTH_MIDDLEWARE: Symbol.for('AuthMiddleware'),
-    GITHUB_COMMIT_PATCH: Symbol.for('GithubCommitPatch'),
-    GRAPHQL_CLIENT: Symbol.for('GraphQLClient'),
     GITHUB_CONFIG: Symbol.for('GithubConfig'),
-    GITHUB_SERVICE: Symbol.for('GithubService'),
     SERVER_CONFIG: Symbol.for('ServerConfig'),
+
+    AUTH_MIDDLEWARE: Symbol.for('AuthMiddleware'),
+
+    AUTH_SERVICE: Symbol.for('AuthService'),
+    GRAPHQL_CLIENT: Symbol.for('GraphQLClient'),
+    GITHUB_SERVICE: Symbol.for('GithubService'),
+    GITHUB_COMMIT_PATCH: Symbol.for('GithubCommitPatch'),
+
+    LOGGER_INSTANCE: Symbol('LOGGER_INSTANCE'),
 }

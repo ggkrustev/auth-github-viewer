@@ -1,5 +1,6 @@
 import { Container } from 'inversify'
 import { GraphQLClient } from 'graphql-request'
+import { LoggerInstance } from 'winston'
 import config from 'config'
 import DI from './di'
 
@@ -8,6 +9,7 @@ import { CommitPatchService } from './services/commit-patch.service'
 import { GithubService } from './services/github.service'
 import { AuthService } from './services/auth.service'
 import { AuthMiddleware } from './middlewares/auth.middleware'
+import logger from './helpers/logger'
 
 const container = new Container()
 
@@ -51,6 +53,8 @@ container.bind<GraphQLClient>(DI.GRAPHQL_CLIENT)
 
 container.bind<CommitPatchService>(DI.GITHUB_COMMIT_PATCH).to(CommitPatchService);
 container.bind<GithubService>(DI.GITHUB_SERVICE).to(GithubService);
+container.bind<LoggerInstance>(DI.LOGGER_INSTANCE).toConstantValue(logger)
+
 
 // Middlewares
 container.bind<AuthMiddleware>(DI.AUTH_MIDDLEWARE)
