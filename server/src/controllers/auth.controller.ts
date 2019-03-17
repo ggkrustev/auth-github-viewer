@@ -12,6 +12,7 @@ import {
     SwaggerDefinitionConstant,
     ApiOperationPost,
 } from 'swagger-express-ts'
+import { LoggerInstance } from 'winston'
 import { AuthService } from '../services/auth.service'
 import { AuthPayload } from '../models/auth-payload'
 import { LoginData } from '../models/login-data'
@@ -23,7 +24,10 @@ import DI from '../di'
 })
 @controller('/auth')
 export class AuthController {
-    constructor(@inject(DI.AUTH_SERVICE) private service: AuthService) {}
+    constructor(
+        @inject(DI.AUTH_SERVICE) private service: AuthService,
+        @inject(DI.LOGGER_INSTANCE) private logger: LoggerInstance
+    ) {}
 
     @ApiOperationPost({
         path: '/login',
@@ -50,7 +54,10 @@ export class AuthController {
         const { username, password } = body
 
         if (!username || !password) {
-            res.status(400).send('Invalid username or password!')
+            this.logger.error('[Authenticate]', {
+                username,
+                password,
+            })            res.status(400).send('Invalid username or password!')
             return
         }
 
@@ -58,16 +65,19 @@ export class AuthController {
         const validUser = await this.service.verifyUser(username, password)
 
         if (!validUser) {
-            res.status(400).send('Invalid username or password!')
+            this.logger.error('[Authenticate]', {
+                username,
+                password,
+            })            res.status(400).send('Invalid username or password!')
             return
         }
 
         const token = this.service.createToken({ email: username })
+        const data = { token, user: 'John Binkley' } as LoginData
 
-        res.status(200).json({
-            token,
-            user: 'John Binkley',
-        } as LoginData)
+        this.logger.error('[Authenticate]', { data })
+
+        res.status(200).json(data)
     }
 
     /*

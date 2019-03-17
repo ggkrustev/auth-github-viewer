@@ -5,11 +5,17 @@ import { fake, stub } from 'sinon'
 import { expect } from 'chai'
 import { cleanUpMetadata } from "inversify-express-utils";
 import { AuthController } from '../../src/controllers/auth.controller'
+import { AuthPayload } from '../../src/models/auth-payload'
 
 describe('AuthController', () => {
     beforeEach(() => {
         cleanUpMetadata()
     })
+
+    const logger = {
+        info: stub(),
+        error: stub(),
+    } as any
 
     const mockResponse = () => {
         const response = {} as any
@@ -21,8 +27,8 @@ describe('AuthController', () => {
 
     it('should return 400 if no user or password', async () => {
         const response = mockResponse()
-        const controller = new AuthController({} as any)
-        await controller.login({}, response as any)
+        const controller = new AuthController({} as any, logger)
+        await controller.login({} as any, response as any)
 
         expect(response.status.calledWith(400)).to.be.true
         expect(
@@ -33,8 +39,8 @@ describe('AuthController', () => {
     it('should return 400 if no user instance', async () => {
         const response = mockResponse()
         const service = { verifyUser: stub().returns(false) }
-        const controller = new AuthController(service as any)
-        await controller.login({}, response as any)
+        const controller = new AuthController(service as any, logger)
+        await controller.login({} as any, response as any)
 
         expect(response.status.calledWith(400)).to.be.true
         expect(
@@ -51,9 +57,12 @@ describe('AuthController', () => {
             createToken,
             verifyUser: stub().returns(true),
         }
-        const controller = new AuthController(service as any)
+        const controller = new AuthController(service as any, logger)
 
-        const body = { username: 'john', password: '123456' }
+        const body = {
+            username: 'john',
+            password: '123456',
+        } as AuthPayload
         await controller.login(body, response as any)
 
         const tokenLastArg = createToken.lastCall.lastArg

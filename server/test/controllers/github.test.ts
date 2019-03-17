@@ -11,13 +11,18 @@ describe('GithubController', () => {
         cleanUpMetadata();
     });
 
+    const logger = {
+        info: stub(),
+        error: stub(),
+    } as any
+
     it('should return repos list', async () => {
         const data = [{}];
         const service = {
             getRepos: stub().returns(Promise.resolve(data))
         };
 
-        const controller = new GithubController(service as any)
+        const controller = new GithubController(service as any, logger)
         const result = await controller.repos();
 
         expect(result).to.eql(data)
@@ -33,7 +38,7 @@ describe('GithubController', () => {
         repoObject.withArgs(nameId, 'package.json').returns(Promise.resolve(pkg));
 
         const service = { getRepoObject: repoObject };
-        const controller = new GithubController(service as any)
+        const controller = new GithubController(service as any, logger)
         const result = await controller.generalInfo(nameId);
 
         expect(result).to.eql({readme, pkg})
@@ -44,7 +49,7 @@ describe('GithubController', () => {
         const nameId = 'clarity';
 
         const service = { getCommits: stub().withArgs(nameId).returns(Promise.resolve(commits)) };
-        const controller = new GithubController(service as any)
+        const controller = new GithubController(service as any, logger)
         const result = await controller.commits(nameId);
 
         expect(result).to.eql(commits)
@@ -62,7 +67,7 @@ describe('GithubController', () => {
         };
 
         const service = { getCommitPatch: stub().withArgs(nameId, commitId).returns(Promise.resolve(patch)) };
-        const controller = new GithubController(service as any)
+        const controller = new GithubController(service as any, logger)
         await controller.patch(nameId, commitId, response as any);
 
         expect(response.attachment.calledWith(`${nameId}-${commitId}.patch`)).to.be.true;
