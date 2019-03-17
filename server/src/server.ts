@@ -1,6 +1,7 @@
  // tslint:disable:only-arrow-functions
 //
 import 'reflect-metadata'
+import cors from 'cors'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import bearerToken from 'express-bearer-token'
@@ -30,6 +31,7 @@ server.setConfig((app) => {
             },
         })
     )
+    app.use(cors())
     app.use(bearerToken())
     app.use('/api-docs/swagger', express.static('swagger'))
     app.use(
@@ -57,9 +59,13 @@ server.setConfig((app) => {
 const serverInstance = server.build()
 const runServer = (options: ServerOptions) => {
     const { port } = options
+    const pid = process.pid
 
     serverInstance.listen(port, () => {
-        console.log(`Example app listening on port ${port}!`) // tslint:disable-line
+        logger.info('[Start server]', {
+            port,
+            pid,
+        })
     })
 }
 
