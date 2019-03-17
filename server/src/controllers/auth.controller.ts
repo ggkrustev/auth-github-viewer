@@ -55,9 +55,14 @@ export class AuthController {
 
         if (!username || !password) {
             this.logger.error('[Authenticate]', {
-                username,
-                password,
-            })            res.status(400).send('Invalid username or password!')
+                message: 'Invalid username or password!',
+                payload: {
+                    username,
+                    password,
+                },,,
+            })
+
+            res.status(400).send('Invalid username or password!')
             return
         }
 
@@ -66,28 +71,55 @@ export class AuthController {
 
         if (!validUser) {
             this.logger.error('[Authenticate]', {
-                username,
-                password,
-            })            res.status(400).send('Invalid username or password!')
+                message: 'Invalid user',
+                payload: {
+                    username,
+                    password,
+                },,
+            }),
+            res.status(400).send('Invalid username or password!')
             return
         }
 
         const token = this.service.createToken({ email: username })
         const data = { token, user: 'John Binkley' } as LoginData
 
-        this.logger.error('[Authenticate]', { data })
+        this.logger.info('[Authenticate]', {
+           
+           
+            message: 'Successful auth!',
+           
+
+   ,
+                   ,
+               data,
+        })
 
         res.status(200).json(data)
     }
 
     /*
-    // TODO: implement once we have:
+     * TODO: Consider to implement
     // - session for user
     // - public/private tokens (if needed)
+    */
 
     @httpPost('/logout')
-    public logout(@response() res: Response) {
-        res.status(501).send('Not implemented!');
+    public logout(
+        
+       
+        @requestBody() body: { token: string },
+        @request() req: Request,
+        @response() res: Response
+    
+    ) {
+        const { token } = body
+        const headerToken = (req as any).token
+
+        if (token && token === headerToken) {
+            res.status(200).send('OK')
+        } else {
+            res.status(400).send('Bad request!')
+        }
     }
-    */
 }
