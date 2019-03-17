@@ -6,5 +6,5 @@ export default {
     GRAPHQL_CLIENT: Symbol.for('GraphQLClient'),
     GITHUB_CONFIG: Symbol.for('GithubConfig'),
     GITHUB_SERVICE: Symbol.for('GithubService'),
-    SERVER_CONFIG: Symbol.for('ServerConfig'),,
+    SERVER_CONFIG: Symbol.for('ServerConfig'),
 }

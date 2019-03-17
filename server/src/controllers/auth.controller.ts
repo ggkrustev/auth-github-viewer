@@ -7,15 +7,46 @@ import {
     response,
     requestBody,
 } from 'inversify-express-utils'
+import {
+    ApiPath,
+    SwaggerDefinitionConstant,
+    ApiOperationPost,
+} from 'swagger-express-ts'
 import { AuthService } from '../services/auth.service'
+import { AuthPayload } from '../models/auth-payload'
+import { LoginData } from '../models/login-data'
 import DI from '../di'
 
+@ApiPath({
+    path: '/auth',
+    name: 'Authentication',
+})
 @controller('/auth')
 export class AuthController {
     constructor(@inject(DI.AUTH_SERVICE) private service: AuthService) {}
 
+    @ApiOperationPost({
+        path: '/login',
+        description: 'Get a JWT token after authenticate',
+        parameters: {
+            body: {
+                description: 'User credentials',
+                model: 'AuthPayload',
+                required: true,
+            },
+        },
+        responses: {
+            200: {
+                description: 'User is authenticated and gets authorization JWT',
+            },
+            400: {},
+        },
+    })
     @httpPost('/login')
-    public async login(@requestBody() body: any, @response() res: Response) {
+    public async login(
+        @requestBody() body: AuthPayload,
+        @response() res: Response
+    ) {
         const { username, password } = body
 
         if (!username || !password) {
@@ -36,7 +67,7 @@ export class AuthController {
         res.status(200).json({
             token,
             user: 'John Binkley',
-        })
+        } as LoginData)
     }
 
     /*

@@ -44,6 +44,8 @@
     "prettier": "1.16.4",
     "reflect-metadata": "^0.1.13",
     "sinon": "7.2.7",
+    "swagger-express-ts": "1.0.1",
+    "swagger-ui-dist": "3.21.0",
     "ts-node-dev": "1.0.0-pre.32",
     "tslint": "5.14.0",
     "tslint-config-prettier": "1.18.0"
