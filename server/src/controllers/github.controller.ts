@@ -16,12 +16,12 @@ import DI from '../di'
 export class GithubController {
     constructor(@inject(DI.GITHUB_SERVICE) private service: GithubService) {}
 
-    @httpGet('/repos')
+    @httpGet('/repos', DI.AUTH_MIDDLEWARE)
     public repos(): Promise<Repository[]> {
         return this.service.getRepos()
     }
 
-    @httpGet('/generalInfo/:nameId')
+    @httpGet('/generalInfo/:nameId', DI.AUTH_MIDDLEWARE)
     public async generalInfo(
         @requestParam('nameId') nameId: string
     ): Promise<GeneralInfo> {
@@ -35,12 +35,12 @@ export class GithubController {
         }
     }
 
-    @httpGet('/commits/:nameId')
+    @httpGet('/commits/:nameId', DI.AUTH_MIDDLEWARE)
     public commits(@requestParam('nameId') nameId: string): Promise<Commit[]> {
         return this.service.getCommits(nameId)
     }
 
-    @httpGet('/commits/:nameId/:commitId')
+    @httpGet('/commits/:nameId/:commitId', DI.AUTH_MIDDLEWARE)
     public async patch(
         @requestParam('nameId') nameId: string,
         @requestParam('commitId') commitId: string,
