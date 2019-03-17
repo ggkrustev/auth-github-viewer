@@ -1,0 +1,18 @@
+<div class="login-wrapper">
+    <form class="login" [formGroup]="loginForm" (ngSubmit)="login()">
+        <label class="title">
+            <h3 class="welcome">Welcome to</h3>
+            VMware Github Viewer
+            <h5 class="hint">Use username:'john@vmware.com' & password:'123456'</h5>
+            <h5 class="hint"></h5>
+        </label>
+        <div class="login-group">
+            <input class="username" type="text" id="username" placeholder="Username" autocomplete="off" formControlName="username" required>
+            <input class="password" type="password" id="password" placeholder="Password" formControlName="password" required>
+            <div *ngIf="showError" class="error active">
+                {{errorMessage}}
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">LOG IN</button>
+        </div>
+    </form>
+</div>

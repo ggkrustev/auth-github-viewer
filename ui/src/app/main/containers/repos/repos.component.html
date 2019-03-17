@@ -1,0 +1,24 @@
+<h2>Pinned repositories</h2>
+<clr-datagrid>
+  <clr-dg-column>Name</clr-dg-column>
+  <clr-dg-column>License</clr-dg-column>
+  <clr-dg-column>Commits</clr-dg-column>
+  <clr-dg-column>Contributors</clr-dg-column>
+  <clr-dg-column>Releases</clr-dg-column>
+  <clr-dg-column>Branches</clr-dg-column>
+
+  <clr-dg-row *ngFor="let repo of repos" (click)="onRowClick(repo)">
+    <clr-dg-cell>
+      <a [routerLink]="['repo', 'info', repo.name]">{{ repo.name }}</a>
+    </clr-dg-cell>
+    <clr-dg-cell>{{ repo.license || "None" }}</clr-dg-cell>
+    <clr-dg-cell>{{ repo.commits }}</clr-dg-cell>
+    <clr-dg-cell>
+      <span title="Should have 'push' rights to see contributors">
+        {{ repo.contributors || "Unknown" }}
+      </span>
+    </clr-dg-cell>
+    <clr-dg-cell>{{ repo.releases }}</clr-dg-cell>
+    <clr-dg-cell>{{ repo.branches }}</clr-dg-cell>
+  </clr-dg-row>
+</clr-datagrid>

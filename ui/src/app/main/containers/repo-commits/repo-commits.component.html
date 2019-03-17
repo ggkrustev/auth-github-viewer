@@ -1,0 +1,15 @@
+<clr-datagrid>
+  <clr-dg-column>Comment</clr-dg-column>
+  <clr-dg-column>Date</clr-dg-column>
+  <clr-dg-column>Contributor</clr-dg-column>
+  <clr-dg-column>Patch</clr-dg-column>
+
+  <clr-dg-row *ngFor="let commit of commits">
+    <clr-dg-cell>{{ commit.comments || "None" }}</clr-dg-cell>
+    <clr-dg-cell>{{ toDate(commit.date) }}</clr-dg-cell>
+    <clr-dg-cell>{{ commit.contributor }}</clr-dg-cell>
+    <clr-dg-cell>
+      <a href="{{ toPatchUrl(commit) }}">Download</a>
+    </clr-dg-cell>
+  </clr-dg-row>
+</clr-datagrid>

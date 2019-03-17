@@ -1,0 +1,13 @@
+<span class="repo-inline-title">vmware/{{ repo }}</span>
+<button (onClick)="goBack()" class="btn btn-outline">
+  Back to pinned repos
+</button>
+
+<app-md-viewer
+  [content]="repoInfo?.readme"
+  [title]="'README.md'"
+></app-md-viewer>
+<app-json-viewer
+  [content]="repoInfo?.pkg"
+  [title]="'package.json'"
+></app-json-viewer>
