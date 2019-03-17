@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main.component';
+import { RepoComponent } from './containers/repo/repo.component';
 import { ReposComponent } from './containers/repos/repos.component';
 import { RepoInfoComponent } from './containers/repo-info/repo-info.component';
 import { RepoCommitsComponent } from './containers/repo-commits/repo-commits.component';
@@ -16,8 +17,7 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       { path: '', component: ReposComponent },
-      { path: 'repo/info/:nameId', component: RepoInfoComponent },
-      { path: 'repo/commits/:nameId', component: RepoCommitsComponent }
+      { path: 'repo/:nameId', component: RepoComponent },
     ]
   }
 ];
@@ -26,6 +26,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes), ClarityModule, CommonModule],
   exports: [RouterModule, ClarityModule],
   declarations: [
+    RepoComponent,
     ReposComponent,
     RepoInfoComponent,
     RepoCommitsComponent,

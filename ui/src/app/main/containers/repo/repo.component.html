@@ -1,0 +1,20 @@
+<span class="repo-inline-title">vmware/{{ repoName }}</span>
+<button (click)="goBack()" class="btn btn-outline">
+  Back to pinned repos
+</button>
+<clr-tabs>
+    <clr-tab>
+        <button clrTabLink id="link1">Details</button>
+        <clr-tab-content id="content1" *clrIfActive="true">
+            <!-- render lazy and pass repoName from parent component -->
+            <app-repo-info></app-repo-info>
+        </clr-tab-content>
+    </clr-tab>
+    <clr-tab>
+        <button clrTabLink>Commits</button>
+        <clr-tab-content>
+            <!-- render lazy and pass repoName from parent component -->
+            <app-repo-commits></app-repo-commits>
+        </clr-tab-content>
+    </clr-tab>
+</clr-tabs>
