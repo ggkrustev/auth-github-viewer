@@ -6,6 +6,8 @@ import DI from './di'
 import { AuthConfig, GithubConfig, ServerConfig } from './config/interfaces'
 import { CommitPatchService } from './services/commit-patch.service'
 import { GithubService } from './services/github.service'
+import { AuthService } from './services/auth.service'
+import { AuthMiddleware } from './middlewares/auth.middleware'
 
 const container = new Container()
 
@@ -31,6 +33,8 @@ container.bind<AuthConfig>(DI.AUTH_CONFIG).toConstantValue({
 })
 
 // Services
+container.bind<AuthService>(DI.AUTH_SERVICE).to(AuthService)
+
 container.bind<GraphQLClient>(DI.GRAPHQL_CLIENT)
          .toDynamicValue(
            (context) => {
@@ -48,6 +52,9 @@ container.bind<GraphQLClient>(DI.GRAPHQL_CLIENT)
 container.bind<CommitPatchService>(DI.GITHUB_COMMIT_PATCH).to(CommitPatchService);
 container.bind<GithubService>(DI.GITHUB_SERVICE).to(GithubService);
 
+// Middlewares
+container.bind<AuthMiddleware>(DI.AUTH_MIDDLEWARE)
+         .to(AuthMiddleware);
 
 export default container
 

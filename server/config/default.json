@@ -8,7 +8,7 @@
         "organizationUrl": "https://github.com/vmware"
     },
     "auth": {
-        "algorithm": "RS256",
+        "algorithm": "HS256",
         "audience": "https://www.vmware.com",
         "expiresIn": "7d",
         "issuer": "VMWare",
