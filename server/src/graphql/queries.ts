@@ -69,7 +69,7 @@ export const commitsQuery = (nameId: string) => `
             target {
             ... on Commit {
                 id
-                history(first: 20) {
+                history(first: 100) {
                     pageInfo {
                         hasNextPage
                     }
