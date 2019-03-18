@@ -7,7 +7,9 @@
     "start": "ts-node src/index.ts",
     "start:dev": "ts-node-dev --respawn src/index.ts",
     "lint": "tslint -c tslint.json src/**/*.*",
-    "test": "mocha --opts mocha.local.opts test/**/*.test.ts"
+    "lint:ci": "echo \"Error: no test:ci specified\" && exit 1",
+    "test": "mocha --opts mocha.local.opts test/**/*.test.ts",
+    "test:ci": "echo \"Error: no lint:ci specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
