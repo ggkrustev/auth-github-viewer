@@ -1,3 +1,7 @@
+export interface CacheConfig {
+    ttlSeconds: number;
+}
+
 export interface ServerConfig {
     port: number
 }

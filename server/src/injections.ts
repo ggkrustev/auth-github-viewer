@@ -4,9 +4,10 @@ import { LoggerInstance } from 'winston'
 import config from 'config'
 import DI from './di'
 
-import { AuthConfig, GithubConfig, ServerConfig } from './config/interfaces'
+import { AuthConfig, CacheConfig, GithubConfig, ServerConfig } from './config/interfaces'
 import { CommitPatchService } from './services/commit-patch.service'
 import { GithubService } from './services/github.service'
+import { CacheService } from './services/cache.service'
 import { AuthService } from './services/auth.service'
 import { AuthMiddleware } from './middlewares/auth.middleware'
 import logger from './helpers/logger'
@@ -14,6 +15,10 @@ import logger from './helpers/logger'
 const container = new Container()
 
 // Configuration
+container.bind<CacheConfig>(DI.CACHE_CONFIG).toConstantValue({
+    ttlSeconds: config.get('cache.ttlSeconds')
+});
+
 container.bind<GithubConfig>(DI.GITHUB_CONFIG).toConstantValue({
     token: config.get('github.token'),
     apiUrl: config.get('github.apiUrl'),
@@ -36,6 +41,7 @@ container.bind<AuthConfig>(DI.AUTH_CONFIG).toConstantValue({
 
 // Services
 container.bind<AuthService>(DI.AUTH_SERVICE).to(AuthService)
+container.bind<CacheService>(DI.CACHE_SERVICE).to(CacheService).inSingletonScope();
 
 container.bind<GraphQLClient>(DI.GRAPHQL_CLIENT)
          .toDynamicValue(
@@ -48,6 +54,7 @@ container.bind<GraphQLClient>(DI.GRAPHQL_CLIENT)
                       Authorization: `Bearer ${token}`,
                   },
               });
+
            }
          );
 

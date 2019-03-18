@@ -15,5 +15,8 @@
         "subject": "admin@vmware.com",
         "secret": "MIIBOQIBAAJBAIdJvHY0F7NcTCW0FLpaE3+6pLkq5iTPXKbqQlsEyj0Bf8NYxF48taxMpTEKyFCI7fqNAHYgZzzujLdTeriAxG8CAwEAAQJAYEESGXeOtUoh02GAreWQofwFXskq3V27qfZaJ7AMw8HQSZcQEjLh5nuIgZX8w3pLZJsL4PXqPouKf1yvixMJAQIhAO52mNtYObHAxoljyw9+ZeEDBK0bH/8Kudt8wn0D8xFPAiEAkTy4vegxxRT6fFu9kV7plbPVzTIDLbB42oslXa0pEuECID+MWXXy0AU/w2jvsDijzZCmVkOve9piyF7mo4nfWJJfAiB3xrwU4gkpn8N0C7SqzruU2lrYfwZgB8mjcl2+g6/8AQIgJJitU4s+EtFRM+8u6aclp6435pPqx620cXrBrZOWuTY=",
         "public": "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIdJvHY0F7NcTCW0FLpaE3+6pLkq5iTPXKbqQlsEyj0Bf8NYxF48taxMpTEKyFCI7fqNAHYgZzzujLdTeriAxG8CAwEAAQ=="
+    },
+    "cache": {
+        "ttlSeconds": 0
     }
 }

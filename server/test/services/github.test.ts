@@ -1,7 +1,6 @@
 import 'mocha'
 import { stub } from 'sinon'
 import { expect } from 'chai'
-import { GraphQLClient } from 'graphql-request'
 import { GithubService } from '../../src/services/github.service'
 
 describe('GithubService', async () => {
@@ -11,6 +10,10 @@ describe('GithubService', async () => {
 
     const stubPatchService = (data: string) => ({
         getPatch: stub().returns(Promise.resolve(data)),
+    })
+
+    const stubCacheService = (data: any) => ({
+        get: stub().returns(Promise.resolve(data)),
     })
 
     it('should return a list of repos', async () => {
@@ -46,10 +49,6 @@ describe('GithubService', async () => {
             },
         })
 
-        const service = new GithubService(
-            client as any,
-            stubPatchService('') as any
-        )
         const expected = [
             {
                 name: 'clarity',
@@ -59,6 +58,12 @@ describe('GithubService', async () => {
                 releases: 136,
             },
         ]
+
+        const service = new GithubService(
+            stubCacheService(expected) as any,
+            client as any,
+            stubPatchService('') as any
+        )
 
         const result = await service.getRepos()
 
@@ -77,6 +82,7 @@ describe('GithubService', async () => {
 
         const client = stubClient(data)
         const service = new GithubService(
+            stubCacheService(expectedText) as any,
             client as any,
             stubPatchService('') as any
         )
@@ -113,10 +119,6 @@ describe('GithubService', async () => {
             },
         })
 
-        const service = new GithubService(
-            client as any,
-            stubPatchService('') as any
-        )
         const expected = [
             {
                 id: '8d26e98ec57bb2223d0c8aedc2514751d3f98f54',
@@ -125,6 +127,12 @@ describe('GithubService', async () => {
                 date: '2018-10-18T17:38:07.000+03:00',
             },
         ]
+
+        const service = new GithubService(
+            stubCacheService(expected) as any,
+            client as any,
+            stubPatchService('') as any
+        )
 
         const result = await service.getCommits('clarity')
 
@@ -136,6 +144,7 @@ describe('GithubService', async () => {
 
         const patchService = stubPatchService(expectedPatch) as any
         const service = new GithubService(
+            stubCacheService(expectedPatch) as any,
             stubClient({}) as any,
             patchService
         )
