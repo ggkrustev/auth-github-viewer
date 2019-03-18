@@ -62,7 +62,7 @@ const runServer = (options: ServerOptions) => {
     const pid = process.pid
 
     serverInstance.listen(port, () => {
-        logger.info('[Start server]', {
+        logger.info('Server started!', {
             port,
             pid,
         })

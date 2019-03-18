@@ -59,7 +59,7 @@ export class AuthController {
                 payload: {
                     username,
                     password,
-                },,,
+                }
             })
 
             res.status(400).send('Invalid username or password!')
@@ -75,7 +75,7 @@ export class AuthController {
                 payload: {
                     username,
                     password,
-                },,
+                }
             }),
             res.status(400).send('Invalid username or password!')
             return
@@ -85,14 +85,8 @@ export class AuthController {
         const data = { token, user: 'John Binkley' } as LoginData
 
         this.logger.info('[Authenticate]', {
-           
-           
             message: 'Successful auth!',
-           
-
-   ,
-                   ,
-               data,
+            data,
         })
 
         res.status(200).json(data)
@@ -106,12 +100,12 @@ export class AuthController {
 
     @httpPost('/logout')
     public logout(
-        
-       
+
+
         @requestBody() body: { token: string },
         @request() req: Request,
         @response() res: Response
-    
+
     ) {
         const { token } = body
         const headerToken = (req as any).token
