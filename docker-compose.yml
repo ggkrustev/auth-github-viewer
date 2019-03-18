@@ -1,0 +1,20 @@
+version: '3'
+services:
+  api:
+    container_name: api
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/app/
+    ports:
+      - "3000:3000"
+  web:
+    container_name: ui
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/app/
+    ports:
+      - "4200:4200"
