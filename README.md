@@ -37,10 +37,12 @@ TOKEN (valid 7d from 2019-03-18)
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5Adm13YXJlLmNvbSIsImlhdCI6MTU1MjkyMzkzMSwiZXhwIjoxNTUzNTI4NzMxLCJhdWQiOiJodHRwczovL3d3dy52bXdhcmUuY29tIiwiaXNzIjoiVk1XYXJlIiwic3ViIjoiYWRtaW5Adm13YXJlLmNvbSJ9.QMh3ZV4br0XvbXqJjwMkyejb5zu1BXgucZp1tfOQBog
 ```
 
-- **repos** - `http://localhost:3000/api/repos`
-- **repo details** - `http://localhost:3000/api/generalInfo/:repoName`
-- **repo commits** - `http://localhost:3000/api/commits/:repoName`
-- **commit patch** - `http://localhost:3000/api/commits/:repoName/:patchId`
+- **repos** - `http://localhost:3000/api/repos?access_token={token}`
+- **repo details** - `http://localhost:3000/api/generalInfo/:repoName?access_token={token}`
+- **repo commits** - `http://localhost:3000/api/commits/:repoName?access_token={token}`
+- **commit patch** - `http://localhost:3000/api/commits/:repoName/:patchId?access_token={token}`
+
+> Auth token can be send either via `access_token` querystring, `cookie` or with `Authorization: Bearer {token}` header
 
 #### npm scripts
 
