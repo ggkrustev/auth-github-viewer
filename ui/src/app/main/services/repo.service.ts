@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { config } from '../../config';
+import { DataSourceModel } from '../models/datasource.model';
 import { RepoModel } from '../models/repo.model';
 import { CommitModel } from '../models/commit.model';
 import { GeneralInfoModel } from '../models/general-info.model';
@@ -23,13 +24,13 @@ export class RepoService {
     );
   }
 
-  repoCommits(nameId: string): Observable<CommitModel[]> {
-    return this.http.get<CommitModel[]>(
-      `${config.apiUrl}/api/commits/${nameId}`
-    );
+  repoCommits(nameId: string, state?: ClrDatagridStateInterface<DataSourceModel<CommitModel>>): Observable<DataSourceModel<CommitModel>> {
+    const params = this.getParams(state);
+
+    return this.http.get<DataSourceModel<CommitModel>>(`${config.apiUrl}/api/commits/${nameId}`, { params });
   }
 
-  private getParams(state?: ClrDatagridStateInterface<RepoModel>): HttpParams {
+  private getParams<T>(state?: ClrDatagridStateInterface<T>): HttpParams {
     const params = new HttpParams();
     if (!state) { return params; }
 
