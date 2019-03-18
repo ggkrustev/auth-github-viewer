@@ -1,29 +1,11 @@
 <h2>Pinned repositories</h2>
-<clr-datagrid>
-  <clr-dg-column [clrDgField]="'name'">
-    Name
-    <clr-dg-string-filter [clrDgStringFilter]="nameFilter"></clr-dg-string-filter>
-  </clr-dg-column>
-  <clr-dg-column [clrDgField]="'license'">
-    License
-    <clr-dg-string-filter [clrDgStringFilter]="licenseFilter"></clr-dg-string-filter>
-  </clr-dg-column>
-  <clr-dg-column [clrDgField]="'commits'">
-    Commits
-    <clr-dg-string-filter [clrDgStringFilter]="commitFilter"></clr-dg-string-filter>
-  </clr-dg-column>
-  <clr-dg-column>
-    Contributors
-    <clr-dg-string-filter [clrDgStringFilter]="contributorFilter"></clr-dg-string-filter>
-  </clr-dg-column>
-  <clr-dg-column>
-    Releases
-    <clr-dg-string-filter [clrDgStringFilter]="releaseFilter"></clr-dg-string-filter>
-  </clr-dg-column>
-  <clr-dg-column>
-    Branches
-    <clr-dg-string-filter [clrDgStringFilter]="branchFilter"></clr-dg-string-filter>
-  </clr-dg-column>
+<clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading">
+  <clr-dg-column [clrDgField]="'name'">Name</clr-dg-column>
+  <clr-dg-column [clrDgField]="'license'">License</clr-dg-column>
+  <clr-dg-column [clrDgField]="'commits'">Commits</clr-dg-column>
+  <clr-dg-column [clrDgField]="'contributors'">Contributors</clr-dg-column>
+  <clr-dg-column [clrDgField]="'releases'">Releases</clr-dg-column>
+  <clr-dg-column [clrDgField]="'branches'">Branches</clr-dg-column>
 
   <clr-dg-row *ngFor="let repo of repos">
     <clr-dg-cell>
@@ -41,3 +23,13 @@
   </clr-dg-row>
   <clr-dg-footer>{{repos.length}} users</clr-dg-footer>
 </clr-datagrid>
+<clr-modal [(clrModalOpen)]="showModal">
+    <h3 class="modal-title">{{ modal?.title }}</h3>
+    <div class="modal-body">
+        <p>{{ modal?.content }}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="showModal = false">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="showModal = false">Ok</button>
+    </div>
+</clr-modal>
