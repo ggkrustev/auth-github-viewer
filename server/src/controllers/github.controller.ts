@@ -15,6 +15,8 @@ import { GeneralInfo } from '../models/general-info'
 import { Repository } from '../models/repository'
 import { Commit } from '../models/commit'
 import DI from '../di'
+import { DataSource } from '../models/data-source';
+import { PageDescriptor } from '../models/page-descriptor';
 
 const identity = (v: any): any => v;
 const toNumber = (value?: string): number => {
@@ -45,11 +47,26 @@ const repositoryTransformers = {
 } as any;
 
 type FilterComparer = (instance: any) => boolean;
+// TODO: make this function generic
 const buildFilterPredicate = (filters: FilterDescriptor[]): FilterComparer[] => {
     return filters.map((f: FilterDescriptor) => {
         const [parse, compare] = repositoryTransformers[f.property];
         return (instance: any): boolean => compare(instance[f.property], parse(f.value));
     });
+}
+
+const filterData = <T>(data: T[], filterPredicates: FilterComparer[]): T[] => {
+    return data.filter((repo) => {
+        return filterPredicates.reduce((state, filter) => {
+            return state || filter(repo);
+        }, false);
+    });
+};
+const pageData = <T>(data: T[], descriptor?: PageDescriptor): T[] => {
+    if (!descriptor) { return data; }
+
+    const { from, to } = descriptor;
+    return data.slice(from, to);
 }
 
 @controller('/api')
@@ -71,13 +88,7 @@ export class GithubController {
                 return Promise.resolve(repos);
             }
 
-            const reduced = repos.filter((repo) => {
-                return filterPredicates.reduce((state, filter) => {
-                    return state || filter(repo);
-                }, false);
-            });
-
-            return Promise.resolve(reduced);
+            return Promise.resolve(filterData(repos, filterPredicates));
         } catch (err) {
             this.logger.error('/github/repos failed', { error: err })
             return Promise.reject(err)
@@ -102,10 +113,23 @@ export class GithubController {
     }
 
     @httpGet('/commits/:nameId', DI.AUTH_MIDDLEWARE)
-    public commits(@requestParam('nameId') nameId: string): Promise<Commit[]> {
-        this.logger.info('[Fetch commits]', { nameId })
+    public async commits(
+        @requestParam('nameId') nameId: string,
+        @queryParam('page') page: string = ''
+    ): Promise<DataSource<Commit>> {
+        try {
+            this.logger.info('[Fetch commits]', { nameId })
 
-        return this.service.getCommits(nameId)
+            // TODO: unify page settings with the client. Use common config package
+            const commits = await this.service.getCommits(nameId);
+            return {
+                data: pageData(commits, qs.parse(page)),
+                total: commits.length
+            };
+        } catch(err) {
+            this.logger.error('/github/commits failed', { error: err })
+            return Promise.reject(err)
+        }
     }
 
     @httpGet('/commits/:nameId/:commitId', DI.AUTH_MIDDLEWARE)

@@ -46,13 +46,17 @@ describe('GithubController', () => {
 
     it('should return commits', async () => {
         const commits = [{}];
+        const datasource = {
+            data: commits,
+            total: 1
+        };
         const nameId = 'clarity';
 
         const service = { getCommits: stub().withArgs(nameId).returns(Promise.resolve(commits)) };
         const controller = new GithubController(service as any, logger)
         const result = await controller.commits(nameId);
 
-        expect(result).to.eql(commits)
+        expect(result).to.eql(datasource)
     })
 
     it('should return patch', async () => {
