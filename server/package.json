@@ -1,9 +1,10 @@
 {
   "name": "auth-github-viewer",
   "version": "1.0.0",
-  "description": "",
+  "description": "Express.js serving VMware Github info",
   "main": "src/index.ts",
   "scripts": {
+    "start": "ts-node src/index.ts",
     "start:dev": "ts-node-dev --respawn src/index.ts",
     "lint": "tslint -c tslint.json src/**/*.*",
     "test": "mocha --opts mocha.local.opts test/**/*.test.ts"
@@ -63,5 +64,9 @@
     "ts-node-dev": "1.0.0-pre.32",
     "tslint": "5.14.0",
     "tslint-config-prettier": "1.18.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ggkrustev/auth-github-viewer"
   }
 }
