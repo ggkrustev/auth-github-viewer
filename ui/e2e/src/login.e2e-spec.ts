@@ -1,16 +1,16 @@
-import { AppPage } from './app.po';
+import { LoginPage } from './login.po';
 import { browser, logging } from 'protractor';
 
-describe('workspace-project App', () => {
-  let page: AppPage;
+describe('workspace-project Login', () => {
+  let page: LoginPage;
 
   beforeEach(() => {
-    page = new AppPage();
+    page = new LoginPage();
   });
 
-  it('should display welcome message', () => {
+  it('should login-wrapper', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to ui!');
+    expect(page.hasLoginWrapper()).toBeTruthy();
   });
 
   afterEach(async () => {

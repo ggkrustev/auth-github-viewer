@@ -1,11 +1,11 @@
 import { browser, by, element } from 'protractor';
 
-export class AppPage {
+export class LoginPage {
   navigateTo() {
     return browser.get(browser.baseUrl) as Promise<any>;
   }
 
-  getTitleText() {
-    return element(by.css('app-root h1')).getText() as Promise<string>;
+  hasLoginWrapper() {
+    return element(by.css('div.login-wrapper')).isPresent() as Promise<boolean>;
   }
 }
