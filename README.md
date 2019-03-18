@@ -42,6 +42,8 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5Adm13YXJlLmNvbSIsImlhdCI
 - **repo commits** - `http://localhost:3000/api/commits/:repoName`
 - **commit patch** - `http://localhost:3000/api/commits/:repoName/:patchId`
 
+#### npm scripts
+
 ## Tech stack
 
 ### Server
@@ -71,6 +73,7 @@ This project is far from finished. The following tasks should be addressed befor
 
 ### Server
 **Must**
+- [ ] Add support for CI pipeline
 - [ ] Improve test coverage, plus integration-test
 - [ ] Improve linting/prettier
 - [ ] Add `helmet` to secure api
@@ -80,6 +83,7 @@ This project is far from finished. The following tasks should be addressed befor
 - [ ] Extend Github endpoints to support filter, sorting, paging
 - [ ] Fix bugs or defectmets (100% sure that there are any)
 - [ ] Find a way to overcome missing credentials to fetch contributors' data
+- [ ] Production configuration/setup to all relevant files (Dockerfile, config and lint/test CI reporting)
 
 **Should**
 - [ ] Improve Swagger definitions
@@ -91,7 +95,10 @@ This project is far from finished. The following tasks should be addressed befor
 
 ### UI
 **Must**
+- [ ] Add support for CI pipeline
 - [ ] Improve test coverage, plus integration-test
 - [ ] Support filtering by multiple columns
 - [ ] Find a way to put filter popup outside the grid (Clarity issue?)
 - [ ] Fix bugs or defectmets (100% sure that there are any)
+- [ ] Production configuration/setup to all relevant files (Dockerfile, config and lint/test CI reporting)
+- [ ] AOT build and nginx production deployment
