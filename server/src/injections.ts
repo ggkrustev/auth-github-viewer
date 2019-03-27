@@ -47,7 +47,12 @@ container.bind<GraphQLClient>(DI.GRAPHQL_CLIENT)
          .toDynamicValue(
            (context) => {
               const githubConfig = context.container.get<GithubConfig>(DI.GITHUB_CONFIG);
+              const logger = context.container.get<
+                  LoggerInstance
+              >(DI.LOGGER_INSTANCE)
               const { apiUrl, token } = githubConfig;
+
+              logger.info('[GraphQL client]', githubConfig)
 
               return new GraphQLClient(apiUrl, {
                   headers: {
