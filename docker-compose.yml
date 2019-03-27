@@ -5,6 +5,8 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
+    environment:
+      - GITHUB_TOKEN=6d79732ea410f250a5a8578e1cf8da6caad945ef
     volumes:
       - .:/usr/app/
     ports:
